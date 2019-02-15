@@ -61,7 +61,7 @@ const onRequest = (request, response) => {
       if (parsedUrl.pathname === '/addUser') {
         handlePost(request, response, parsedUrl);
       } else {
-        jsonHandler.notFReal(request, response);
+        jsonHandler.notReal(request, response);
       }
       break;
     default:
