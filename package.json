@@ -1,11 +1,11 @@
 {
-  "name": "http-api-assignment-ii",
+  "name": "api-project",
   "version": "1.0.0",
   "engines": {
     "node": "10.14.1",
     "npm": "6.4.1"
   },
-  "description": "HTTP API Assignment II",
+  "description": "API Project Prototype",
   "main": "src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cynictaire/http-api-assignment-ii.git"
+    "url": "git+https://github.com/cynictaire/Project1-API.git"
   },
   "author": "Aiden Thinn",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cynictaire/http-api-assignment-ii/issues"
+    "url": "https://github.com/cynictaire/Project1-API/issues"
   },
-  "homepage": "https://github.com/cynictaire/http-api-assignment-ii#readme",
+  "homepage": "https://github.com/cynictaire/Project1-API#readme",
   "dependencies": {
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
