@@ -1,4 +1,4 @@
-const users = {};
+const notes = {};
 
 const respondJSON = (request, response, status, object) => {
   const headers = {
@@ -19,26 +19,33 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
-const addUser = (request, response, body) => {
+const addNote = (request, response, body) => {
   const responseJSON = {
-    message: 'Name and age are both required.',
+    message: 'Event name and date are both required.',
   };
 
-  if (!body.name || !body.age) {
+  if (!body.name || !body.date) {
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }
 
   let responseCode = 201;
 
-  if (users[body.name]) {
+  if (notes[body.name]) {
     responseCode = 204;
   } else {
-    users[body.name] = {};
+    notes[body.name] = {};
   }
 
-  users[body.name].name = body.name;
-  users[body.name].age = body.age;
+  notes[body.name].name = body.name;
+  notes[body.name].date = body.date;
+    
+  if (body.desc != "") {
+      notes[body.name].desc = body.desc;
+  }
+  else {
+      notes[body.name].desc = "";
+  }
 
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';
@@ -48,15 +55,15 @@ const addUser = (request, response, body) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
-const getUsers = (request, response) => {
+const getNotes = (request, response) => {
   const responseJSON = {
-    users,
+    notes,
   };
 
   return respondJSON(request, response, 200, responseJSON);
 };
 
-const getUsersMeta = (request, response) => respondJSONMeta(request, response, 200);
+const getNotesMeta = (request, response) => respondJSONMeta(request, response, 200);
 
 const notReal = (request, response) => {
   const responseJSON = {
@@ -72,9 +79,9 @@ const notRealMeta = (request, response) => {
 };
 
 module.exports = {
-  addUser,
-  getUsers,
-  getUsersMeta,
+  addNote,
+  getNotes,
+  getNotesMeta,
   notReal,
   notRealMeta,
 };

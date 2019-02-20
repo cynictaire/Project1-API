@@ -7,7 +7,7 @@ const jsonHandler = require('./jsonResponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const handlePost = (request, response, parsedUrl) => {
-  if (parsedUrl.pathname === '/addUser') {
+  if (parsedUrl.pathname === '/addNote') {
     const res = response;
     const body = [];
 
@@ -26,7 +26,7 @@ const handlePost = (request, response, parsedUrl) => {
       const bodyString = Buffer.concat(body).toString();
       const bodyParams = query.parse(bodyString);
 
-      jsonHandler.addUser(request, res, bodyParams);
+      jsonHandler.addNote(request, res, bodyParams);
     });
   }
 };
@@ -40,8 +40,8 @@ const onRequest = (request, response) => {
         htmlHandler.getIndex(request, response);
       } else if (parsedUrl.pathname === '/style.css') {
         htmlHandler.getCSS(request, response);
-      } else if (parsedUrl.pathname === '/getUsers') {
-        jsonHandler.getUsers(request, response);
+      } else if (parsedUrl.pathname === '/getNotes') {
+        jsonHandler.getNotes(request, response);
       } else if (parsedUrl.pathname === '/notReal') {
         jsonHandler.notReal(request, response);
       } else {
@@ -49,7 +49,7 @@ const onRequest = (request, response) => {
       }
       break;
     case 'HEAD':
-      if (parsedUrl.pathname === '/getUsers') {
+      if (parsedUrl.pathname === '/getNotes') {
         jsonHandler.getUsersMeta(request, response);
       } else if (parsedUrl.pathname === '/notReal') {
         jsonHandler.notRealMeta(request, response);
@@ -58,7 +58,7 @@ const onRequest = (request, response) => {
       }
       break;
     case 'POST':
-      if (parsedUrl.pathname === '/addUser') {
+      if (parsedUrl.pathname === '/addNote') {
         handlePost(request, response, parsedUrl);
       } else {
         jsonHandler.notReal(request, response);

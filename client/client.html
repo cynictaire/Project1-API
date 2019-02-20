@@ -11,46 +11,40 @@
         const obj = JSON.parse(xhr.response);
         console.dir(obj);
         
-        if (obj.message) {
-            const p = document.createElement('p');
-            p.textContent = `Message: ${obj.message}`;
-            content.appendChild(p);
-        }
-        
-        if (obj.users) {
-            const userList = document.createElement('p');
-            const users = JSON.stringify(obj.users);
-            userList.textContent = users;
-            content.appendChild(userList);
+        if (obj.notes) {
+            const noteList = obj.notes;
+            
+            for (let event in noteList) {
+                const note = document.createElement('div');
+                
+                if (noteList.hasOwnProperty(event)) {
+                    let name = document.createElement('p');
+                    let desc = document.createElement('p');
+                    let date = document.createElement('p');
+                    
+                    name.textContent = "Event: " + noteList[event].name;
+                    desc.textContent = noteList[event].desc;
+                    date.textContent = "Date: " + noteList[event].date;
+                    
+                    note.appendChild(name);
+                    note.appendChild(desc);
+                    note.appendChild(date);
+                }
+                
+                content.appendChild(note);
+            }
         }
     };
 
     const handleResponse = (xhr, parseResponse) => {
         
         const content = document.querySelector('#content');
+        content.innerHTML = " ";
         
-        switch (xhr.status) {
-            case 200:
-                content.innerHTML = `<b>Success<b>`;
-                break;
-            case 201:
-                content.innerHTML = `<b>Create<b>`;
-                break;
-            case 204:
-                content.innerHTML = `<b>Updated (No Content)<b>`;
-                break;
-            case 400:
-                content.innerHTML = `<b>Bad Request<b>`;
-                break;
-            case 404:
-                content.innerHTML = `<b>Resource Not Found<b>`;
-                break;
-            default:
-                content.innerHTML = `Error code not implemented by client.`;
-                break;
+        if (xhr.status == 204) {
+            content.innerHTML = `<b>Updated (No Content)</b>`;
         }
-        
-        if (parseResponse) {
+        else if (parseResponse) {
             parseJSON(xhr, content);   
         }
     };
@@ -64,7 +58,7 @@
             url = form.querySelector('#urlField').value;
         }
         else {
-            url = '/addUser';
+            url = '/addNote';
         }
         
         if (form.querySelector('#methodSelect')) {
@@ -90,7 +84,7 @@
             xhr.onload = () => handleResponse(xhr, true);
         }
         
-        const formData = `name=${nameField.value}&age=${ageField.value}`;
+        const formData = `name=${nameField.value}&desc=${descField.value}&date=${dateField.value}`;
         
         xhr.send(formData);
         
@@ -99,13 +93,13 @@
     };
 
     const init = () => {
-        const nameForm = document.querySelector('#nameForm');
-        const addUser = (e) => requestUpdate(e, nameForm);
-        nameForm.addEventListener('submit', addUser);
+        const noteForm = document.querySelector('#noteForm');
+        const addNote = (e) => requestUpdate(e, noteForm);
+        noteForm.addEventListener('submit', addNote);
         
-        const userForm = document.querySelector('#userForm');
-        const getUsers = (e) => requestUpdate(e, userForm);
-        userForm.addEventListener('submit', getUsers);
+        const getForm = document.querySelector('#getForm');
+        const getNotes = (e) => requestUpdate(e, getForm);
+        getForm.addEventListener('submit', getNotes);
     };
 
     window.onload = init;
@@ -113,24 +107,26 @@
 </head>
 <body>
   <section id="top">
-    <h3>POST Status Code Tests</h3>
-    <form id="nameForm" action="/addUser" method="post">
-      <label for="name">Name: </label>
+    <h3>API Project Prototype - Reminder</h3>
+    <form id="noteForm" action="/addNote" method="post">
+      <label for="name">Event: </label>
       <input id="nameField" type="text" name="name" />
-      <label for="age">Age: </label>
-      <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
-      <input type="submit" value="Add User" />
+      <label for="desc">Description (optional): </label>
+      <input id="descField" type="text" name="desc" />
+      <label for="date">Date: </label>
+      <input id="dateField" type="date" name="date" />
+      <input type="submit" value="Add Note" />
     </form>
-    <form id="userForm" action="/getUsers" method="get">
+    <form id="getForm" action="/getNotes" method="get">
       <select id='urlField'>
-        <option value='/getUsers'>/getUsers</option>
+        <option value='/getNotes'>/getNotes</option>
         <option value='/notReal'>/notReal</option>
       </select>
       <select id="methodSelect">
         <option value="get">GET</option>
         <option value="head">HEAD</option>
       </select>
-      <input type="submit" value="Get User" />
+      <input type="submit" value="Get Event List" />
     </form>
   </section>
   <section id="content">
