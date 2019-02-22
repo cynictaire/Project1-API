@@ -40,7 +40,7 @@ const addNote = (request, response, body) => {
   notes[body.name].name = body.name;
   notes[body.name].date = body.date;
     
-  if (body.desc != "") {
+  if (body.desc !== "") {
       notes[body.name].desc = body.desc;
   }
   else {
