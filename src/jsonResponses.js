@@ -55,12 +55,28 @@ const addNote = (request, response, body) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
-const getNotes = (request, response) => {
+const getNotes = (request, response, body) => {
+    
   const responseJSON = {
     notes,
   };
-
-  return respondJSON(request, response, 200, responseJSON);
+    
+  const topPriorities = {};
+  const allNotes = Object.values(notes);
+    
+    if(body.important) {
+        
+        allNotes.forEach((note) => {
+            if (parseInt(note.time) >= parseInt(body.time)) {
+                topPriorities[note.name] = notes[note.name];
+            }
+        });
+        
+        respondJSON(request, response, 200, topPriorities);
+    }
+    else {
+        respondJSON(request, response, 200, responseJSON);
+    }
 };
 
 const getNotesMeta = (request, response) => respondJSONMeta(request, response, 200);

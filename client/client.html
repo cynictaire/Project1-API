@@ -49,24 +49,12 @@
         }
     };
 
-    const requestUpdate = (e, form) => {
+    const getNotes = (e, form) => {
         
-        let url;
-        let method;
+        document.querySelector('#top').style.display = 'none';
         
-        if (form.querySelector('#urlField')) {
-            url = form.querySelector('#urlField').value;
-        }
-        else {
-            url = '/addNote';
-        }
-        
-        if (form.querySelector('#methodSelect')) {
-            method = form.querySelector('#methodSelect').value;
-        }
-        else {
-            method = 'post';
-        }
+        let url = '/getNotes';
+        let method = 'get';
         
         const xhr = new XMLHttpRequest();
         
@@ -74,23 +62,61 @@
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.setRequestHeader('Accept', 'application/json');
         
-        if (method == 'get') {
-            xhr.onload = () => handleResponse(xhr, true);
-        }
-        else if (method == 'head') {
-            xhr.onload = () => handleResponse(xhr, false);
-        }
-        else if (method == 'post') {
-            xhr.onload = () => handleResponse(xhr, true);
-        }
+        xhr.onload = () => handleResponse(xhr, true);
         
-        const formData = `name=${nameField.value}&desc=${descField.value}&date=${dateField.value}`;
-        
-        xhr.send(formData);
+        xhr.send();
         
         e.preventDefault();
         return false;
-    };
+        
+    }
+    
+    const getTopPriorities = (e, form) => {
+        
+        docu
+    }
+   //const requestUpdate = (e, form) => {
+   //    
+   //    let url;
+   //    let method;
+   //    
+   //    if (form.querySelector('#urlField')) {
+   //        url = form.querySelector('#urlField').value;
+   //    }
+   //    else {
+   //        url = '/addNote';
+   //    }
+   //    
+   //    if (form.querySelector('#methodSelect')) {
+   //        method = form.querySelector('#methodSelect').value;
+   //    }
+   //    else {
+   //        method = 'post';
+   //    }
+   //    
+   //    const xhr = new XMLHttpRequest();
+   //    
+   //    xhr.open(method, url);
+   //    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+   //    xhr.setRequestHeader('Accept', 'application/json');
+   //    
+   //    if (method == 'get') {
+   //        xhr.onload = () => handleResponse(xhr, true);
+   //    }
+   //    else if (method == 'head') {
+   //        xhr.onload = () => handleResponse(xhr, false);
+   //    }
+   //    else if (method == 'post') {
+   //        xhr.onload = () => handleResponse(xhr, true);
+   //    }
+   //    
+   //    const formData = `name=${nameField.value}&desc=${descField.value}&date=${dateField.value}`;
+   //    
+   //    xhr.send(formData);
+   //    
+   //    e.preventDefault();
+   //    return false;
+   //};
 
     const init = () => {
         const noteForm = document.querySelector('#noteForm');
@@ -115,6 +141,8 @@
       <input id="descField" type="text" name="desc" />
       <label for="date">Date: </label>
       <input id="dateField" type="date" name="date" />
+      <label for="time">Time: </label>
+      <input id="timeField" type="number" name="time" min="5" max="100" />
       <input type="submit" value="Add Note" />
     </form>
     <form id="getForm" action="/getNotes" method="get">
