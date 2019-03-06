@@ -39,12 +39,11 @@ const addNote = (request, response, body) => {
 
   notes[body.name].name = body.name;
   notes[body.name].date = body.date;
-    
-  if (body.desc !== "") {
-      notes[body.name].desc = body.desc;
-  }
-  else {
-      notes[body.name].desc = "";
+
+  if (body.desc !== '') {
+    notes[body.name].desc = body.desc;
+  } else {
+    notes[body.name].desc = '';
   }
 
   if (responseCode === 201) {
@@ -60,23 +59,24 @@ const getNotes = (request, response, body) => {
   const responseJSON = {
     notes,
   };
-    
+
   const topPriorities = {};
-  const allNotes = Object.values(notes);
-    
-    if(body.important) {
-        
-        allNotes.forEach((note) => {
-            if (parseInt(note.time) >= parseInt(body.time)) {
-                topPriorities[note.name] = notes[note.name];
-            }
-        });
-        
-        respondJSON(request, response, 200, topPriorities);
-    }
-    else {
-        respondJSON(request, response, 200, responseJSON);
-    }
+  const allNotes = Object.keys(notes);
+
+  if (body.important == true) {
+      
+      console.log(body.important);
+      
+    allNotes.forEach((note) => {
+      if (parseInt(note.time, 10) >= parseInt(body.time, 10)) {
+        topPriorities[note.name] = notes[note.name];
+      }
+    });
+
+    return respondJSON(request, response, 200, topPriorities);
+  }
+
+  return respondJSON(request, response, 200, responseJSON);
 };
 
 const getNotesMeta = (request, response) => respondJSONMeta(request, response, 200);

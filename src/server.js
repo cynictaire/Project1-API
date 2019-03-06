@@ -33,6 +33,7 @@ const handlePost = (request, response, parsedUrl) => {
 
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
+  const bodyParams = query.parse(parsedUrl.query);
 
   switch (request.method) {
     case 'GET':
@@ -41,7 +42,7 @@ const onRequest = (request, response) => {
       } else if (parsedUrl.pathname === '/style.css') {
         htmlHandler.getCSS(request, response);
       } else if (parsedUrl.pathname === '/getNotes') {
-        jsonHandler.getNotes(request, response);
+        jsonHandler.getNotes(request, response, bodyParams);
       } else if (parsedUrl.pathname === '/notReal') {
         jsonHandler.notReal(request, response);
       } else {
@@ -50,7 +51,7 @@ const onRequest = (request, response) => {
       break;
     case 'HEAD':
       if (parsedUrl.pathname === '/getNotes') {
-        jsonHandler.getUsersMeta(request, response);
+        jsonHandler.getNotesMeta(request, response);
       } else if (parsedUrl.pathname === '/notReal') {
         jsonHandler.notRealMeta(request, response);
       } else {

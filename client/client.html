@@ -49,12 +49,10 @@
         }
     };
 
-    const getNotes = (e, form) => {
+    const addNotes = (e, form) => {
         
-        document.querySelector('#top').style.display = 'none';
-        
-        let url = '/getNotes';
-        let method = 'get';
+        let url = '/addNote';
+        let method = 'post';
         
         const xhr = new XMLHttpRequest();
         
@@ -64,100 +62,109 @@
         
         xhr.onload = () => handleResponse(xhr, true);
         
+        const formData = `name=${nameField.value}&desc=${descField.value}&date=${dateField.value}`;
+        
+        xhr.send(formData);
+        
+        //e.preventDefault();
+        return false;
+    };
+    
+    const getNotes = (e, form) => {
+        
+        document.querySelector('#submission').style.display = 'none';
+        document.querySelector('#content').style.display = 'block';
+        
+        let url = '/getNotes';
+        let method = 'get';
+        
+        const xhr = new XMLHttpRequest();
+        
+        xhr.open(method, url);
+        xhr.setRequestHeader('Accept', 'application/json');
+        
+        xhr.onload = () => handleResponse(xhr, true);
+        
         xhr.send();
         
-        e.preventDefault();
+        //e.preventDefault();
         return false;
         
-    }
+    };
     
     const getTopPriorities = (e, form) => {
         
-        docu
-    }
-   //const requestUpdate = (e, form) => {
-   //    
-   //    let url;
-   //    let method;
-   //    
-   //    if (form.querySelector('#urlField')) {
-   //        url = form.querySelector('#urlField').value;
-   //    }
-   //    else {
-   //        url = '/addNote';
-   //    }
-   //    
-   //    if (form.querySelector('#methodSelect')) {
-   //        method = form.querySelector('#methodSelect').value;
-   //    }
-   //    else {
-   //        method = 'post';
-   //    }
-   //    
-   //    const xhr = new XMLHttpRequest();
-   //    
-   //    xhr.open(method, url);
-   //    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-   //    xhr.setRequestHeader('Accept', 'application/json');
-   //    
-   //    if (method == 'get') {
-   //        xhr.onload = () => handleResponse(xhr, true);
-   //    }
-   //    else if (method == 'head') {
-   //        xhr.onload = () => handleResponse(xhr, false);
-   //    }
-   //    else if (method == 'post') {
-   //        xhr.onload = () => handleResponse(xhr, true);
-   //    }
-   //    
-   //    const formData = `name=${nameField.value}&desc=${descField.value}&date=${dateField.value}`;
-   //    
-   //    xhr.send(formData);
-   //    
-   //    e.preventDefault();
-   //    return false;
-   //};
+        document.querySelector('#submission').style.display = 'none';
+        document.querySelector('#content').style.display = 'block';
+        
+        let url = '/getNotes?important=true&time=30';
+        let method = 'get';
+        
+        const xhr = new XMLHttpRequest();
+        
+        xhr.open(method, url);
+        xhr.setRequestHeader('Accept', 'application/json');
+        
+        xhr.onload = () => handleResponse(xhr, true);
+        
+        xhr.send();
+        
+        //e.preventDefault();
+        return false;
+    };
 
     const init = () => {
+        
+        const submissionForm = document.querySelector('#submission');
+        const content = document.querySelector('#content');
+        
         const noteForm = document.querySelector('#noteForm');
-        const addNote = (e) => requestUpdate(e, noteForm);
+        const addNote = (e) => addNotes(e, noteForm);
         noteForm.addEventListener('submit', addNote);
         
-        const getForm = document.querySelector('#getForm');
-        const getNotes = (e) => requestUpdate(e, getForm);
-        getForm.addEventListener('submit', getNotes);
+        document.querySelector('#writeNote').onclick = (e) => {
+            submissionForm.style.display = 'block';
+            content.style.display = 'none';
+        };
+        
+        document.querySelector('#allNotes').onclick = (e) => getNotes();
+        
+        document.querySelector('#topPriorities').onclick = (e) => getTopPriorities();
     };
 
     window.onload = init;
   </script>
 </head>
 <body>
-  <section id="top">
-    <h3>API Project Prototype - Reminder</h3>
-    <form id="noteForm" action="/addNote" method="post">
-      <label for="name">Event: </label>
-      <input id="nameField" type="text" name="name" />
-      <label for="desc">Description (optional): </label>
-      <input id="descField" type="text" name="desc" />
-      <label for="date">Date: </label>
-      <input id="dateField" type="date" name="date" />
-      <label for="time">Time: </label>
-      <input id="timeField" type="number" name="time" min="5" max="100" />
-      <input type="submit" value="Add Note" />
-    </form>
-    <form id="getForm" action="/getNotes" method="get">
-      <select id='urlField'>
-        <option value='/getNotes'>/getNotes</option>
-        <option value='/notReal'>/notReal</option>
-      </select>
-      <select id="methodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get Event List" />
-    </form>
-  </section>
-  <section id="content">
-  </section>
+    <ul id ="navBar">
+        <li id="writeNote">
+            <a class="active" href="#">Write</a>
+        </li>
+        <li id="allNotes">
+            <a href="#">Review</a>
+        </li>
+        <li id="topPriorities">
+            <a href="#">Top Priorities</a>
+        </li>
+    </ul>
+    
+    <section id="submission">
+        <h3>API Project</h3>
+        
+        <form id="noteForm" action="/addNote" method="post">
+            <label for="name">Event: </label>
+            <input id="nameField" type="text" name="name" />
+            <label for="desc">Description (optional): </label>
+            <input id="descField" type="text" name="desc" />
+            <label for="date">Date: </label>
+            <input id="dateField" type="date" name="date" />
+            <label for="time">Time: </label>
+            <input id="timeField" type="number" name="time" min="5" max="100" />
+            <input type="submit" value="Add Note" />
+        </form>
+    </section>
+    
+    <section id="content">
+    </section>
 </body>
 </html>
