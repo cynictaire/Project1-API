@@ -51,7 +51,7 @@ const addNote = (request, response, body) => {
     return respondJSON(request, response, responseCode, responseJSON);
   }
 
-  return respondJSONMeta(request, response, responseCode);
+  //return respondJSONMeta(request, response, responseCode);
 };
 
 const getNotes = (request, response, body) => {

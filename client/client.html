@@ -6,7 +6,7 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
-    const parseJSON = (xhr, content) => {
+    const parseJSON = (xhr, content, notices) => {
         
         const obj = JSON.parse(xhr.response);
         console.dir(obj);
@@ -21,31 +21,40 @@
                     let name = document.createElement('p');
                     let desc = document.createElement('p');
                     let date = document.createElement('p');
+                    let time = document.createElement('p');
                     
-                    name.textContent = "Event: " + noteList[event].name;
+                    name.textContent = "For: " + noteList[event].name;
                     desc.textContent = noteList[event].desc;
-                    date.textContent = "Date: " + noteList[event].date;
+                    date.textContent = "On: " + noteList[event].date;
+                    time.textContent = "Study Time: " + noteList[event].time;
                     
                     note.appendChild(name);
                     note.appendChild(desc);
                     note.appendChild(date);
+                    note.appendChild(time);
                 }
                 
                 content.appendChild(note);
             }
+        }
+        else {
+            document.getElementById('notices').innerHTML = JSON.stringify(obj.message);
         }
     };
 
     const handleResponse = (xhr, parseResponse) => {
         
         const content = document.querySelector('#content');
+        const notices = document.querySelector('#notices');
+        
         content.innerHTML = " ";
+        notices.innerHTML = " ";
         
         if (xhr.status == 204) {
-            content.innerHTML = `<b>Updated (No Content)</b>`;
+            notcies.innerHTML = `<b>Updated (No Content)</b>`;
         }
         else if (parseResponse) {
-            parseJSON(xhr, content);   
+            parseJSON(xhr, content, notices);   
         }
     };
 
@@ -62,7 +71,7 @@
         
         xhr.onload = () => handleResponse(xhr, true);
         
-        const formData = `name=${nameField.value}&desc=${descField.value}&date=${dateField.value}`;
+        const formData = `name=${nameField.value}&desc=${descField.value}&date=${dateField.value}&time=${timeField.value}`;
         
         xhr.send(formData);
         
@@ -163,8 +172,12 @@
             <input type="submit" value="Add Note" />
         </form>
     </section>
-    
+
     <section id="content">
+    </section>
+    
+    <section id="notices">
+        <p id="messages"></p>
     </section>
 </body>
 </html>
