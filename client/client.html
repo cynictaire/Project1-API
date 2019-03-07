@@ -146,21 +146,22 @@
   </script>
 </head>
 <body>
-    <ul id ="navBar">
-        <li id="writeNote">
-            <a class="active" href="#">Write</a>
-        </li>
-        <li id="allNotes">
-            <a href="#">Review</a>
-        </li>
-        <li id="topPriorities">
-            <a href="#">Top Priorities</a>
-        </li>
-    </ul>
+    <div class="sideBar">
+        <h1>Study Mate</h1>
+        <ul class ="navLinks">
+            <li id="writeNote">
+                <a href="#">Write</a>
+            </li>
+            <li id="allNotes">
+                <a href="#">Review</a>
+            </li>
+            <li id="topPriorities">
+                <a href="#">Top Priorities</a>
+            </li>
+        </ul>
+    </div>
     
-    <section id="submission">
-        <h3>API Project</h3>
-        
+    <div id="submission">
         <form id="noteForm" action="/addNote" method="post">
             <label for="name">Event: </label>
             <input id="nameField" type="text" name="name" />
@@ -172,13 +173,13 @@
             <input id="timeField" type="number" name="time" min="5" max="100" />
             <input type="submit" value="Add Note" />
         </form>
-    </section>
+    </div>
 
-    <section id="content">
-    </section>
+    <div id="content">
+    </div>
     
-    <section id="notices">
+    <div id="notices">
         <p id="messages"></p>
-    </section>
+    </div>
 </body>
 </html>
