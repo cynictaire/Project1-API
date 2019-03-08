@@ -6,8 +6,11 @@ const jsonHandler = require('./jsonResponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
+//Handle POST request
 const handlePost = (request, response, parsedUrl) => {
+    
   if (parsedUrl.pathname === '/addNote') {
+      
     const res = response;
     const body = [];
 
@@ -32,10 +35,13 @@ const handlePost = (request, response, parsedUrl) => {
 };
 
 const onRequest = (request, response) => {
+    
   const parsedUrl = url.parse(request.url);
   const bodyParams = query.parse(parsedUrl.query);
 
   switch (request.method) {
+        
+    //Handle GET requests
     case 'GET':
       if (parsedUrl.pathname === '/') {
         htmlHandler.getIndex(request, response);
@@ -49,6 +55,8 @@ const onRequest = (request, response) => {
         jsonHandler.notReal(request, response);
       }
       break;
+    
+    //Handle HEAD requests
     case 'HEAD':
       if (parsedUrl.pathname === '/getNotes') {
         jsonHandler.getNotesMeta(request, response);
@@ -58,6 +66,8 @@ const onRequest = (request, response) => {
         jsonHandler.notRealMeta(request, response);
       }
       break;
+          
+    //Handle POST requests
     case 'POST':
       if (parsedUrl.pathname === '/addNote') {
         handlePost(request, response, parsedUrl);

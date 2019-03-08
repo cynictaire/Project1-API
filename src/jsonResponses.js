@@ -23,10 +23,10 @@ const respondJSONMeta = (request, response, status) => {
 //Add a new note when user submit with the required parameters 
 const addNote = (request, response, body) => {
   const responseJSON = {
-    message: 'Exam Title and Date are both required.',
+    message: 'Exam Title, Date, and Time are all required.',
   };
 
-  if (!body.name || !body.date) {
+  if (!body.name || !body.date || !body.time) {
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }

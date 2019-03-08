@@ -1,6 +1,8 @@
+/** Imported Fonts **/
 @import url('https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 
+/** Body **/
 html, body {
     height: 100%;
     width: 100%;
