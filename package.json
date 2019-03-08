@@ -5,7 +5,7 @@
     "node": "10.14.1",
     "npm": "6.4.1"
   },
-  "description": "API Project Prototype",
+  "description": "API Project",
   "main": "src/server.js",
   "scripts": {
     "start": "node ./src/server.js",

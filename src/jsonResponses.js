@@ -1,3 +1,4 @@
+//Holds all the notes
 const notes = {};
 
 const respondJSON = (request, response, status, object) => {
@@ -19,6 +20,7 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
+//Add a new note when user submit with the required parameters 
 const addNote = (request, response, body) => {
   const responseJSON = {
     message: 'Exam Title and Date are both required.',
@@ -55,26 +57,31 @@ const addNote = (request, response, body) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
+//Retrieve all the notes that has been added
 const getNotes = (request, response, body) => {
   let responseJSON = {
     notes,
   };
 
+  //Holds notes that have study time longer than 45 minutes
   const topPriorities = {};
   const allNotes = Object.keys(notes);
 
-  console.log(body);
-
+  //If note is considered as 'important' due to its study time
   if (body.important) {
-    console.log(body.important);
 
+    //Iterate through all the notes
     allNotes.forEach((note) => {
-      console.dir(note);
+     
+      //If the note's study time is longer than or equal to 45 minutes
       if (parseInt(notes[note].time, 10) >= parseInt(body.time, 10)) {
+        
+        //Add it to topPriorities
         topPriorities[note] = notes[note];
       }
     });
-
+    
+    //Return topPriorities instead of notes
     responseJSON = { notes: topPriorities };
     return respondJSON(request, response, 200, responseJSON);
   }
@@ -84,6 +91,7 @@ const getNotes = (request, response, body) => {
 
 const getNotesMeta = (request, response) => respondJSONMeta(request, response, 200);
 
+//Not Found page
 const notReal = (request, response) => {
   const responseJSON = {
     message: 'The page you are looking for was not found.',

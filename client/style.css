@@ -10,7 +10,8 @@ html, body {
     background-image: linear-gradient(to bottom, #aeffde, #abd2d9);
 }
 
-#sieBar {
+/** Navigation Bar and Title **/
+#topBar {
     position: relative;
     margin: 0 auto;
 }
@@ -48,6 +49,7 @@ ul.navLinks li a {
     padding: 15px;
     display: inline-block;
     text-decoration: none;
+    color: #333;
 }
 
 ul.navLinks li a:hover {
@@ -70,6 +72,7 @@ ul.navLinks li a:visited {
     background-image: linear-gradient(to bottom, #fff, #d3d3d3);
 }
 
+/** Add Note Form **/
 #noteForm {
     padding: 5px;
 }
@@ -114,6 +117,7 @@ label, input {
     background-color: #000;
 }
 
+/** Note Content **/
 #content div {
     margin: 10px auto;
     font-size: 25px
@@ -139,6 +143,7 @@ label, input {
     font-weight: bold;
 }
 
+/** Notices **/
 #notices {
     margin: 0 auto;
     text-align: center;

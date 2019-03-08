@@ -15,21 +15,21 @@
         notices.innerHTML = " ";
         
         if (xhr.status == 204) {
-            notices.innerHTML = "Updated the note!";
+            notices.innerHTML = "Note updated!";
         }
         else if (parseResponse){
-            
+
             const obj = JSON.parse(xhr.response);
-            console.dir(obj);
             
             if (obj.notes) {
                 const noteList = obj.notes;
             
                 for (let event in noteList) {
+                    
                     const note = document.createElement('div');
                 
-                    console.dir(event);
                     if (noteList.hasOwnProperty(event)) {
+                        
                         let name = document.createElement('p');
                         let desc = document.createElement('p');
                         let date = document.createElement('p');
@@ -108,7 +108,7 @@
         document.querySelector('#submission').style.display = 'none';
         document.querySelector('#content').style.display = 'block';
         
-        let url = '/getNotes?important=true&time=30';
+        let url = '/getNotes?important=true&time=45';
         let method = 'get';
         
         const xhr = new XMLHttpRequest();
@@ -151,7 +151,7 @@
   </script>
 </head>
 <body>
-    <div id="sideBar">
+    <div id="topBar">
         <h1>Study, Mate!</h1>
         <p id="instruct">Take a note of your upcoming tasks!</p>
         <ul class="navLinks">
