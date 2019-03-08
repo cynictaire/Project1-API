@@ -21,7 +21,7 @@ const respondJSONMeta = (request, response, status) => {
 
 const addNote = (request, response, body) => {
   const responseJSON = {
-    message: 'Event name and date are both required.',
+    message: 'Exam Title and Date are both required.',
   };
 
   if (!body.name || !body.date) {
@@ -48,7 +48,7 @@ const addNote = (request, response, body) => {
   }
 
   if (responseCode === 201) {
-    responseJSON.message = 'Created Successfully';
+    responseJSON.message = 'Wrote a note!';
     return respondJSON(request, response, responseCode, responseJSON);
   }
 
@@ -56,28 +56,26 @@ const addNote = (request, response, body) => {
 };
 
 const getNotes = (request, response, body) => {
-    
   let responseJSON = {
     notes,
   };
 
   const topPriorities = {};
   const allNotes = Object.keys(notes);
-    
-    console.log(body);
+
+  console.log(body);
 
   if (body.important) {
-      
-      console.log(body.important);
-      
+    console.log(body.important);
+
     allNotes.forEach((note) => {
-        console.dir(note);
+      console.dir(note);
       if (parseInt(notes[note].time, 10) >= parseInt(body.time, 10)) {
         topPriorities[note] = notes[note];
       }
     });
-      
-    responseJSON = {notes:topPriorities};
+
+    responseJSON = { notes: topPriorities };
     return respondJSON(request, response, 200, responseJSON);
   }
 

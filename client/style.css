@@ -5,59 +5,142 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 10px;
     font-family: 'ZCOOL QingKe HuangYou', cursive;
-    background-image: linear-gradient(to right, #aeffde, #abd2d9)
+    background-image: linear-gradient(to bottom, #aeffde, #abd2d9);
+}
+
+#sieBar {
+    position: relative;
+    margin: 0 auto;
 }
 
 h1 {
-    margin: 10px;
-    padding: 10px;
+    margin: 0 auto;
+    padding: 2px;
+    text-align: center;
+    font-size: 150px;
     font-family: 'Amatic SC', cursive;
 }
 
+#instruct {
+    text-align: center;
+}
+
 ul.navLinks {
-    list-style-type: none;
-    margin: 10px;
-    width: 10%;
-    height: 10%;
+    list-style: none;
+    width: 450px;
+    margin: 0 auto;
     padding: 5px;
-    overflow: auto;
-    position: fixed;
-    background-color: #fff;    
+    text-align: center;
+    background-color: #fff;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+}
+
+ul.navLinks li {
+    display: inline;
+    font-size: 20px;
+    color: #333;
 }
 
 ul.navLinks li a {
-    display: block;
-    font-size: 15px;
-    color: #333;
-    padding: 8px 16px;
+    padding: 15px;
+    display: inline-block;
     text-decoration: none;
 }
 
 ul.navLinks li a:hover {
-    background-color: #abd2d9;
-}
-
-ul.navLinks li a:active {
     background-color: #abddda;
 }
 
-#submission {
-    height: 200px;
-    width: 300px;
-    text-align: center;
-    margin: 0 auto;
-    padding: 10px;
-    border: solid 1px; 
+ul.navLinks li a:visited {
+    text-decoration: none;
+    color: #333;
 }
 
-#content {
-    margin-top: 100px;
-    font-size: 2em;
+#submission {
+    height: 285px;
+    width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    position: relative;
+    background-image: linear-gradient(to bottom, #fff, #d3d3d3);
+}
+
+#noteForm {
+    padding: 5px;
+}
+
+#noteForm input[type=submit] {
+    margin-left: 190px;
+    background-color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-size: 25px;
+}
+
+#noteForm input[type=submit]:hover {
+    color: #fff;
+    background-color: #000;
+}
+
+
+label, input {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.textField {
+    width: 265px;
+    color: #fff;
+    background-color: #000;
+}
+
+#descField {
+    height: 50px;
+}
+
+#dateField {
+    height: 20px;
+    color: #fff;
+    background-color: #000;
+}
+
+#timeField {
+    height: 20px;
+    color: #fff;
+    background-color: #000;
+}
+
+#content div {
+    margin: 10px auto;
+    font-size: 25px
     text-align: center;
+    width: 250px;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    padding: 5px;
+    background-image: linear-gradient(to bottom, #fff, #d3d3d3);
+}
+
+#exam {
+    border-bottom: solid 1px;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.details {
+    padding: 3px;
+}
+
+#date {
+    font-weight: bold;
 }
 
 #notices {
-    
+    margin: 0 auto;
+    text-align: center;
+    padding: 2px;
 }
